@@ -47,3 +47,5 @@ ADD CONSTRAINT fk_products_category
 FOREIGN KEY (categoryId) REFERENCES categories(id)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
+INSERT INTO users (email, password, roleId)
+VALUES ('admin@admin.com', '123456', 2);
