@@ -50,7 +50,7 @@ exports.getProductById = async (req, res) => {
 // Crear producto
 exports.createProduct = async (req, res) => {
   try {
-    const { nombre, precio, descripcion } = req.body;
+    const { nombre, precio, descripcion,imageUrl, categoryId } = req.body;
     
     if (!nombre || !precio) {
       return res.status(400).json({
@@ -68,7 +68,7 @@ exports.createProduct = async (req, res) => {
       });
     }
     
-    const product = await Product.create({ nombre, precio, descripcion });
+    const product = await Product.create({ nombre, precio, descripcion,imageUrl,categoryId });
     
     res.status(201).json({
       success: true,
@@ -151,5 +151,17 @@ exports.deleteProduct = async (req, res) => {
       message: 'Error al eliminar producto',
       data: null
     });
+  }
+};
+exports.getByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const products = await Product.findAll({
+      where: { categoryId }
+    });
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Error obteniendo productos" });
   }
 };

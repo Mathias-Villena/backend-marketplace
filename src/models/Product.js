@@ -1,38 +1,28 @@
-// src/models/Product.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const Category = require("./Category");
 
-const Product = sequelize.define(
-  'Product',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    nombre: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-    precio: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-      validate: {
-        min: 0
-      }
-    },
-    descripcion: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    }
+const Product = sequelize.define("Product", {
+  nombre: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  {
-    tableName: 'products',
-    timestamps: false
+  precio: {
+    type: DataTypes.DECIMAL(10,2),
+    allowNull: false,
+  },
+  descripcion: {
+    type: DataTypes.TEXT,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+  },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   }
-);
+});
+
+Product.belongsTo(Category, { foreignKey: "categoryId" });
 
 module.exports = Product;

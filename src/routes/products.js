@@ -8,5 +8,9 @@ router.get('/:id', productController.getProductById);
 router.post('/', productController.createProduct);
 router.put('/:id', productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);
+router.get("/admin", auth, isAdmin, (req, res) => {
+  res.json({ message: "Ruta admin correcta ✔" });
+});
+router.get("/category/:categoryId", getByCategory);
 
 module.exports = router;
