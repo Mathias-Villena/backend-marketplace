@@ -4,6 +4,7 @@ const cors = require('cors');
 const productsRoutes = require('./routes/products');
 const fs = require('fs');
 const path = require('path');
+const sequelize = require("./config/database");
 
 const app = express();
 
